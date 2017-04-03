@@ -28,8 +28,17 @@ def update
   @film.update(film_params)
 
   redirect_to films_path, notice: "Update Success"
-  
 end
+
+ def destroy
+    @film = Film.find(params[:id])
+    @film.destroy
+    flash[:alert] = "Movie deleted"
+    redirect_to films_path
+ end
+
+
+
 
 private
 
