@@ -17,10 +17,12 @@ class FilmsController < ApplicationController
 
 def create
   @film = Film.new(film_params)
-  @film.save
-
+ if @film.save
   redirect_to films_path
-end
+ else
+  render :new
+  end
+ end
 
 def update
   @film = Film.find(params[:id])
