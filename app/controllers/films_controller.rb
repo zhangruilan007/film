@@ -3,6 +3,10 @@ class FilmsController < ApplicationController
     @films = Film.all
   end
 
+  def show
+    @film = Film.find(params[:id])
+  end
+
  def new
    @film = Film.new
  end
@@ -17,7 +21,7 @@ end
 private
 
 def film_params
-  params.require(:film).permit(:title, :description)  
+  params.require(:film).permit(:title, :description)
 end
 
 end
