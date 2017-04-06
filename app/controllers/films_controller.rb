@@ -22,6 +22,7 @@ def create
   @film = Film.new(film_params)
   @film.user = current_user
  if @film.save
+   current_user.join!(@film)
   redirect_to films_path
  else
   render :new
