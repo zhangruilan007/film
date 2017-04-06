@@ -13,4 +13,12 @@ def is_member_of?(film)
   participated_films.include?(film)
 end
 
+def join!(film)
+  participated_films << film
+end
+
+def quit!(film)
+  participated_films.delete(film)
+end
+
 end
