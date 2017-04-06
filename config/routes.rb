@@ -8,6 +8,11 @@ resources :films do
   end
   resources :reviews
 end
+
+namespace :account do
+  resources :films
+end
+
 root 'films#index'
 
 end
