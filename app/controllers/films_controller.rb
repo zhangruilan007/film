@@ -1,6 +1,6 @@
 class FilmsController < ApplicationController
   before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy]
-  before_action :find_film_and_check_permission, only: [:edit, :update, :destroy]
+  before_action :find_film_and_check_permission, only: [:edit, :update, :destroy, :join, :quit]
 
   def index
     @films = Film.all
@@ -43,7 +43,30 @@ end
     redirect_to films_path
  end
 
+def join
+  @film = Film.find(params[:id])
 
+  if !current_user.is_member_of?(@film)
+    current_user.join!(@film)
+    flash[:notice] = "收藏电影成功！"
+  else
+    flash[:warnig] = "你已收藏电影！"
+  end
+  redirect_to film_path(@film)
+end
+
+def quit
+  @film= Film.find(params[:id])
+
+  if current_user.is_member_of?(@film)
+    current_user.quit!(@film)
+    flash[:alert] = "取消电影收藏！"
+  else
+    flash[:warning] = "你未收藏电影，怎么取消！"
+  end
+  redirect_to film_path(@film)
+
+end
 
 
 private
