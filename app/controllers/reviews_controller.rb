@@ -28,6 +28,37 @@ def find_film_and_check_favorite
 end
 
 
+def edit
+  @film = Film.find(params[:film_id])
+  @review = Review.find(params[:id])
+end
+
+def update
+  @film = Film.find(params[:film_id])
+  @review = Review.find(params[:id])
+
+  if @review.update(review_params)
+    redirect_to account_reviews_path(@film), notice: "Update success"
+  else
+    render :edit
+  end
+end
+
+
+  def destroy
+    @film = Film.find(params[:film_id])
+    @review = Review.find(params[:id])
+    if @review.destroy
+      redirect_to account_reviews_path(@film), alert: "Review deleted"
+    else
+      render :edit
+    end
+  end
+
+
+
+
+
   private
 
   def review_params
